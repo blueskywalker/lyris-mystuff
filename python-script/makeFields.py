@@ -5,41 +5,67 @@
 #import easy to use xml parser called minidom:
 from xml.dom.minidom import parse
 import sys
+import commands
 
 
 def detectNumericType(type):
     if type.lower() == "number":
         return "long"
         
-def main(args):
-    if(len(args)<3):
-        print "It needs 'contact_format.xml' 'schema.xml'"
-        exit()
-        
-    fileName=args[1]
-    dom = parse(fileName)
+fields=dict()
+
+def makeFieldDict(filename):  
+    dom = parse(filename)
     regions = dom.getElementsByTagName('Region')
-    
-    fields=dict()
+
     for r in regions:
-        fields[r.getAttribute("field")]=r.getAttribute("type")
-        
-    dom = parse(args[2])
+        if (fields.has_key(r.getAttribute("field")) and 
+            fields[r.getAttribute("field")] !=  r.getAttribute("type")):
+            print "Conflict Field[%s] type [%s] %s [%s]"%(r.getAttribute("field"),
+                fields[r.getAttribute("field")],filename,r.getAttribute("type"))
+            if(fields[r.getAttribute("field")]=="date"):
+                fields[r.getAttribute("field")]=r.getAttribute("type")
+        else:
+            fields[r.getAttribute("field")]=r.getAttribute("type")
+
+
+existDict = dict()
+def readSchema(filename):
+    dom = parse(filename)
     exists = dom.getElementsByTagName('field')
-    existDict = dict()
     
     for  r in exists:
         existDict[r.getAttribute('name')]=r.getAttribute('type')
-    
+
+def makeOutput(filename):
     for fn in existDict.viewkeys():
         if (fields.has_key(fn)):
             continue
-        
+
         fields[fn]=existDict[fn]
     
-    for f in sorted(fields.iterkeys()):
-        print '<field name="%s" type="%s" indexed="true" store="true" />' %( f,  fields[f])
+    outFile = open(filename,"w")
 
+    for f in sorted(fields.iterkeys()):
+        outFile.write('<field name="%s" type="%s" indexed="true" store="true" />\n' %( f,  fields[f]))
+
+    outFile.close()
+
+def main(args):
+    if(len(args)<3):
+        print "It needs 'schema.xml' 'contact.xml'..."
+        exit()
+        
+    readSchema(args[1])
+ 
+    args.pop(0); # args 0
+    args.pop(0); # args 1
+
+    for arg in args:
+        makeFieldDict(arg)
+
+    makeOutput('schema_snapit.xml')
     
+
 if __name__ == '__main__':
     main(sys.argv)
