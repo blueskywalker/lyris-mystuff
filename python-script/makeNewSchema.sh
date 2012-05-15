@@ -4,7 +4,7 @@ ed - schema.xml << EOF
 /Lyris_TYPE
 +,/Lyris_TYPE/-d
 -
-.r newType.xml
+. r schema_snapit.xml
 w
 q
 EOF
