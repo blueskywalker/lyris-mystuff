@@ -1,0 +1,5 @@
+core
+contact-list
+segmentation-engine
+dataflowengine
+core-workflow
