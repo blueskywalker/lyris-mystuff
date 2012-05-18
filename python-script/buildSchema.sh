@@ -6,6 +6,18 @@ then
     exit
 fi
 
+MYSQL=.mysql_set
+
+if [ -f ${MYSQL} ]
+then
+    source ${MYSQL}
+fi
+
+if [ -z $MYSQL_HOST ]
+then
+   MYSQL_HOST=10.3.203.143
+fi
+
 SQL_SCRIPT=getSchema.sql
 UPDATEXML=update.list.txt
 PYTHONPRG=makeFields.py
@@ -20,15 +32,14 @@ function  cleanup()
 
 function getSchemaFromDB()
 {
-    local HOST=10.3.203.143
     local USER=root
     local PASSWD=g0lyr1s
     local DBNAME=$1
     local OUTNAME=${DBNAME}_schema.xml
     local TMP_OUT=/tmp/${OUTNAME}
 
-    echo "mysql -h${HOST} -u${USER} -p${PASSWD}  ${DBNAME} < ${SQL_SCRIPT} > ${TMP_OUT}"
-    mysql -h${HOST} -u${USER} -p${PASSWD}  ${DBNAME} < ${SQL_SCRIPT} > ${TMP_OUT}
+    echo "mysql -h${MYSQL_HOST} -u${USER} -p${PASSWD}  ${DBNAME} < ${SQL_SCRIPT} > ${TMP_OUT}"
+    mysql -h${MYSQL_HOST} -u${USER} -p${PASSWD}  ${DBNAME} < ${SQL_SCRIPT} > ${TMP_OUT}
     cat ${TMP_OUT} | sed -e '1d' -e 's/\\n/\n/g' -e 's/\\t/\t/g' > ${OUTNAME}
     echo ${OUTNAME} >> ${UPDATEXML}
 }
@@ -51,6 +62,8 @@ ed - schema.xml << EOF
 w
 q
 EOF
+
+echo "schema.xml is modified"
 }
 
 function copyToDeploy()
