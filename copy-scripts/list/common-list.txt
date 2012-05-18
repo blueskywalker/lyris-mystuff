@@ -1,0 +1,10 @@
+common
+hadoop-common
+analytics/analytics-common
+content
+exception
+dataaccess
+cache
+messaging
+event/event-common
+
