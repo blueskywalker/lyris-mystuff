@@ -114,7 +114,7 @@ def printRowsResult(rows):
 def updateRowsForDebugging(table_name,rows):
     
     for row in rows:
-        newrowid= '|'.join(['kskim@lyris.com',row.row.split('|')[1]+'1'])
+        newrowid= '|'.join(['jerry@lyris.com',row.row.split('|')[1]])
         print newrowid
         mutatelist=list()    
         
@@ -126,10 +126,10 @@ def updateRowsForDebugging(table_name,rows):
             else:
                 mutatelist.append(Hbase.Mutation(column=col[0],value=col[1].value))
 
-#        print mutatelist
+        print mutatelist
         client.mutateRow(table_name,newrowid,mutatelist)
+        break
         
-
 def getMasterTables():
     for table in client.getTableNames():
         if 'master' in table:
@@ -141,19 +141,19 @@ def main(args):
 #    getColumnInfo('email_by_hour')
  
 #    getColumnInfo('lyris_uptilt_master_lyris')            
-    table_name='lyris_uptilt_master_lyris'
+    table_name='lyris_uptiltallin1002_master_lyris'
 #    table_name='lyris_fulcrumtech_master_lyris'
 #    table_name='visitor_by_hour'
 
 #    rows=getUniqRow(table_name)
 #    print(len(rows.items())) 
 
-    ret=getRowsLimit(table_name,10)
+#    ret=getRowsLimit(table_name,3)
 #   printRowsResult(ret)
-    updateRowsForDebugging(table_name,ret)
+#    updateRowsForDebugging(table_name,ret)
 
-#    client.mutateRow(table_name,'jerry@lyris.com|079678-13795157-000',
-#                     [Hbase.Mutation(column='master_info_cf:webSiteType',value='Commercial')])
+    client.mutateRow(table_name,'jerry@lyris.com|079678-13795157-000',
+                     [Hbase.Mutation(column='master_info_cf:webSiteType',value='Commercial')])
 
 
 if __name__ == "__main__":

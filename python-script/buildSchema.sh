@@ -63,10 +63,10 @@ function main()
 {
     cleanup
     retrieveSchema $*
-    echo python ${PYTHONPRG} $(cat ${UPDATEXML}) 
-    python ${PYTHONPRG} $(cat ${UPDATEXML}) 
+    echo python ${PYTHONPRG} schema.xml $(cat ${UPDATEXML}) 
+    python ${PYTHONPRG} schema.xml $(cat ${UPDATEXML}) 
     modifySchema
-    copyToDeploy
+#    copyToDeploy
 }
 
 
