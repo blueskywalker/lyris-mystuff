@@ -15,7 +15,7 @@ fi
 
 if [ -z $MYSQL_HOST ]
 then
-   MYSQL_HOST=10.3.203.143
+   MYSQL_HOST=10.3.213.144
 fi
 
 source baseScript.sh
@@ -27,7 +27,7 @@ function main()
     echo python ${PYTHONPRG} schema.xml $(cat ${UPDATEXML}) 
     python ${PYTHONPRG} schema.xml $(cat ${UPDATEXML}) 
     modifySchema
-    copyToDeploy DEV
+    copyToDeploy QA
 }
 
 

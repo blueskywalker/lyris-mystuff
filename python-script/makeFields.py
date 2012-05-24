@@ -6,7 +6,7 @@
 from xml.dom.minidom import parse
 import sys
 import commands
-
+import re
 
 def detectNumericType(type):
     if type.lower() == "number":
@@ -23,8 +23,8 @@ def makeFieldDict(filename):
             fields[r.getAttribute("field")] !=  r.getAttribute("type")):
             print "Conflict Field[%s] type [%s] %s [%s]"%(r.getAttribute("field"),
                 fields[r.getAttribute("field")],filename,r.getAttribute("type"))
-            if(fields[r.getAttribute("field")]=="date"):
-                fields[r.getAttribute("field")]=r.getAttribute("type")
+#			print re.match('.*Date',r.getAttribute("field"))
+
         else:
             fields[r.getAttribute("field")]=r.getAttribute("type")
 

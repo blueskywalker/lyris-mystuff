@@ -15,4 +15,4 @@ TMP_OUT=/tmp/${DBNAME}_schema.xml
 
 mysql -h${HOST} -u${USER} -p${PASSWD}  ${DBNAME} < ${SQL_SCRIPT} > ${TMP_OUT}
 
-cat ${TMP_OUT} | sed -e '1d' -e 's/\\n/\n/g' -e 's/\\t/\t/g' > ${DBNAME}_schema.xml
+cat ${TMP_OUT} | sed -e '1d' -e 's/\\n/ /g' -e 's/\\t/ /g' > ${DBNAME}_schema.xml
