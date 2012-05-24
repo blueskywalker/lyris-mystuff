@@ -1,7 +1,7 @@
 #!/bin/bash
 ROOTDIR=.
 VERSION='1.0.9'
-BASEDIR=/home/jerry/Source/lyris
+BASEDIR=~/Source/lyris
 TARGET='10.3.9.18'
 DESTBASE='/opt/lyris'
 SYNC='rsync -av'
