@@ -410,6 +410,19 @@
 		<filter class="solr.LowerCaseFilterFactory"/>
 	</analyzer>
   </fieldType>
+
+   <fieldType name="date_year" class="solr.TextField" >
+	<analyzer type="index" class="com.lyris.search.analyzer.DateYearFilterAnalyzer" />
+	<analyzer type="query" class="org.apache.lucene.analysis.KeywordAnalyzer" />
+   </fieldType>
+   <fieldType name="date_month" class="solr.TextField" >
+	<analyzer type="index" class="com.lyris.search.analyzer.DateMonthFilterAnalyzer" />
+	<analyzer type="query" class="org.apache.lucene.analysis.KeywordAnalyzer" />
+   </fieldType>
+   <fieldType name="date_day" class="solr.TextField" >
+	<analyzer type="index" class="com.lyris.search.analyzer.DateDayFilterAnalyzer" />
+	<analyzer type="query" class="org.apache.lucene.analysis.KeywordAnalyzer" />
+   </fieldType>
  </types>
 
 
@@ -461,26 +474,26 @@
 <field name="EmailChann8OptinStatus" type="string" indexed="true" store="true" />
 <field name="EmailChann9OptinStatus" type="string" indexed="true" store="true" />
 <field name="address" type="string" indexed="true" store="true" />
-<field name="address_auto" type="text_auto" indexed="true" store="false" />
+<field name="address_auto" type="text_auto" indexed="true" store="true" />
 <field name="age" type="string" indexed="true" store="true" />
 <field name="author" type="textgen" indexed="true" store="true" />
 <field name="birthday" type="date" indexed="true" store="true" />
 <field name="category" type="textgen" indexed="true" store="true" />
 <field name="childrenInHousehold" type="string" indexed="true" store="true" />
 <field name="city" type="string" indexed="true" store="true" />
-<field name="city_auto" type="text_auto" indexed="true" store="false" />
+<field name="city_auto" type="text_auto" indexed="true" store="true" />
 <field name="comments" type="text" indexed="true" store="true" />
 <field name="companyName" type="string" indexed="true" store="true" />
-<field name="companyName_auto" type="text_auto" indexed="true" store="false" />
+<field name="companyName_auto" type="text_auto" indexed="true" store="true" />
 <field name="companySize" type="string" indexed="true" store="true" />
 <field name="content_type" type="string" indexed="true" store="true" />
 <field name="country" type="string" indexed="true" store="true" />
-<field name="country_auto" type="text_auto" indexed="true" store="false" />
+<field name="country_auto" type="text_auto" indexed="true" store="true" />
 <field name="creationDate" type="string" indexed="true" store="true" />
 <field name="customerId" type="string" indexed="true" store="true" />
-<field name="customerId_auto" type="text_auto" indexed="true" store="false" />
+<field name="customerId_auto" type="text_auto" indexed="true" store="true" />
 <field name="customerName" type="string" indexed="true" store="true" />
-<field name="customerName_auto" type="text_auto" indexed="true" store="false" />
+<field name="customerName_auto" type="text_auto" indexed="true" store="true" />
 <field name="customerType" type="string" indexed="true" store="true" />
 <field name="delete_contact" type="string" indexed="true" store="true" />
 <field name="deliveryChannel" type="string" indexed="true" store="true" />
@@ -836,13 +849,13 @@
 <field name="emailChann9OptinJoinDate" type="date" indexed="true" store="true" />
 <field name="emailChann9OptinStatus" type="string" indexed="true" store="true" />
 <field name="emailChann9OptinUnsubDate" type="date" indexed="true" store="true" />
-<field name="email_auto" type="text_auto" indexed="true" store="false" />
+<field name="email_auto" type="text_auto" indexed="true" store="true" />
 <field name="employeedoj" type="string" indexed="true" store="true" />
 <field name="employeeid" type="string" indexed="true" store="true" />
 <field name="employeename" type="string" indexed="true" store="true" />
 <field name="employeeunit" type="string" indexed="true" store="true" />
 <field name="firstName" type="string" indexed="true" store="true" />
-<field name="firstName_auto" type="text_auto" indexed="true" store="false" />
+<field name="firstName_auto" type="text_auto" indexed="true" store="true" />
 <field name="gender" type="string" indexed="true" store="true" />
 <field name="hlEdu" type="string" indexed="true" store="true" />
 <field name="homeOwnership" type="string" indexed="true" store="true" />
@@ -850,10 +863,10 @@
 <field name="income" type="string" indexed="true" store="true" />
 <field name="internetExp" type="string" indexed="true" store="true" />
 <field name="jobTitle" type="string" indexed="true" store="true" />
-<field name="jobTitle_auto" type="text_auto" indexed="true" store="false" />
+<field name="jobTitle_auto" type="text_auto" indexed="true" store="true" />
 <field name="keywords" type="textgen" indexed="true" store="true" />
 <field name="lastName" type="string" indexed="true" store="true" />
-<field name="lastName_auto" type="text_auto" indexed="true" store="false" />
+<field name="lastName_auto" type="text_auto" indexed="true" store="true" />
 <field name="last_modified" type="date" indexed="true" store="true" />
 <field name="lead" type="string" indexed="true" store="true" />
 <field name="leadType" type="string" indexed="true" store="true" />
@@ -870,7 +883,7 @@
 <field name="mobilePermissionDate" type="string" indexed="true" store="true" />
 <field name="newsLetterType" type="string" indexed="true" store="true" />
 <field name="occupation" type="string" indexed="true" store="true" />
-<field name="occupation_auto" type="text_auto" indexed="true" store="false" />
+<field name="occupation_auto" type="text_auto" indexed="true" store="true" />
 <field name="opportunityAll" type="string" indexed="true" store="true" />
 <field name="opportunityLost" type="string" indexed="true" store="true" />
 <field name="opportunityNew" type="string" indexed="true" store="true" />
@@ -882,12 +895,12 @@
 <field name="payloads" type="payloads" indexed="true" store="true" />
 <field name="phone" type="string" indexed="true" store="true" />
 <field name="phone2" type="string" indexed="true" store="true" />
-<field name="phone_auto" type="text_auto" indexed="true" store="false" />
+<field name="phone_auto" type="text_auto" indexed="true" store="true" />
 <field name="salutation" type="string" indexed="true" store="true" />
 <field name="state" type="string" indexed="true" store="true" />
-<field name="state_auto" type="text_auto" indexed="true" store="false" />
+<field name="state_auto" type="text_auto" indexed="true" store="true" />
 <field name="subOrgId" type="string" indexed="true" store="true" />
-<field name="subOrgId_auto" type="text_auto" indexed="true" store="false" />
+<field name="subOrgId_auto" type="text_auto" indexed="true" store="true" />
 <field name="subject" type="text" indexed="true" store="true" />
 <field name="subscribe" type="string" indexed="true" store="true" />
 <field name="text" type="text" indexed="true" store="true" />
@@ -897,7 +910,7 @@
 <field name="updateDate" type="date" indexed="true" store="true" />
 <field name="webSiteType" type="string" indexed="true" store="true" />
 <field name="zip" type="string" indexed="true" store="true" />
-<field name="zip_auto" type="text_auto" indexed="true" store="false" />
+<field name="zip_auto" type="text_auto" indexed="true" store="true" />
 <!-- end of Lyris_TYPE -->
 
    <!-- Dynamic field definitions.  If a field name is not found, dynamicFields
@@ -929,6 +942,9 @@
    <dynamicField name="attr_*" type="textgen" indexed="true" stored="true" multiValued="true"/>
 
    <dynamicField name="random_*" type="random" />
+   <dynamicField name="*_year" type="date_year" indexed="true" stored="false"/>
+   <dynamicField name="*_month" type="date_month" indexed="true" stored="false"/>
+   <dynamicField name="*_day" type="date_day" indexed="true" stored="false"/>
 
    <!-- uncomment the following to ignore any fields that don't already match an existing 
         field name or dynamic field, rather than reporting them as an error. 
@@ -993,4 +1009,7 @@
   <copyField source="occupation" dest="occupation_auto" />
   <copyField source="jobTitle" dest="jobTitle_auto" />
   <copyField source="companyName" dest="companyName_auto" />
+  <copyField source="birthday" dest="birthday_year" />
+  <copyField source="birthday" dest="birthday_month" />
+  <copyField source="birthday" dest="birthday_day" />
 </schema>
