@@ -2,7 +2,7 @@
 
 PLATFORM=DEV
 
-if [ $# -ge 1 -a $1 == "qa" ]
+if [[ $# -ge 1 && $1 ==  "qa" ]]
 then
 PLATFORM=QA
 fi

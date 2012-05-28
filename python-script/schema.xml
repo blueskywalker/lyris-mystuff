@@ -481,26 +481,20 @@
 <field name="EmailChann8OptinStatus" type="string" indexed="true" store="true" />
 <field name="EmailChann9OptinStatus" type="string" indexed="true" store="true" />
 <field name="address" type="string" indexed="true" store="true" />
-<field name="address_auto" type="text_auto" indexed="true" store="false" />
-<field name="age" type="stringSolr" indexed="true" store="true" />
+<field name="age" type="string" indexed="true" store="true" />
 <field name="author" type="textgen" indexed="true" store="true" />
 <field name="birthday" type="date" indexed="true" store="true" />
 <field name="category" type="textgen" indexed="true" store="true" />
 <field name="childrenInHousehold" type="string" indexed="true" store="true" />
 <field name="city" type="string" indexed="true" store="true" />
-<field name="city_auto" type="text_auto" indexed="true" store="false" />
 <field name="comments" type="text" indexed="true" store="true" />
 <field name="companyName" type="string" indexed="true" store="true" />
-<field name="companyName_auto" type="text_auto" indexed="true" store="false" />
 <field name="companySize" type="string" indexed="true" store="true" />
 <field name="content_type" type="string" indexed="true" store="true" />
 <field name="country" type="string" indexed="true" store="true" />
-<field name="country_auto" type="text_auto" indexed="true" store="false" />
 <field name="creationDate" type="string" indexed="true" store="true" />
 <field name="customerId" type="string" indexed="true" store="true" />
-<field name="customerId_auto" type="text_auto" indexed="true" store="false" />
 <field name="customerName" type="string" indexed="true" store="true" />
-<field name="customerName_auto" type="text_auto" indexed="true" store="false" />
 <field name="customerType" type="string" indexed="true" store="true" />
 <field name="delete_contact" type="string" indexed="true" store="true" />
 <field name="deliveryChannel" type="string" indexed="true" store="true" />
@@ -856,23 +850,19 @@
 <field name="emailChann9OptinJoinDate" type="date" indexed="true" store="true" />
 <field name="emailChann9OptinStatus" type="string" indexed="true" store="true" />
 <field name="emailChann9OptinUnsubDate" type="date" indexed="true" store="true" />
-<field name="email_auto" type="text_auto" indexed="true" store="false" />
 <field name="employeedoj" type="string" indexed="true" store="true" />
 <field name="employeeid" type="string" indexed="true" store="true" />
 <field name="employeename" type="string" indexed="true" store="true" />
 <field name="employeeunit" type="string" indexed="true" store="true" />
 <field name="firstName" type="string" indexed="true" store="true" />
-<field name="firstName_auto" type="text_auto" indexed="true" store="false" />
 <field name="gender" type="string" indexed="true" store="true" />
 <field name="hlEdu" type="string" indexed="true" store="true" />
 <field name="homeOwnership" type="string" indexed="true" store="true" />
 <field name="income" type="string" indexed="true" store="true" />
 <field name="internetExp" type="string" indexed="true" store="true" />
 <field name="jobTitle" type="string" indexed="true" store="true" />
-<field name="jobTitle_auto" type="text_auto" indexed="true" store="false" />
 <field name="keywords" type="textgen" indexed="true" store="true" />
 <field name="lastName" type="string" indexed="true" store="true" />
-<field name="lastName_auto" type="text_auto" indexed="true" store="false" />
 <field name="last_modified" type="date" indexed="true" store="true" />
 <field name="lead" type="string" indexed="true" store="true" />
 <field name="leadType" type="string" indexed="true" store="true" />
@@ -889,7 +879,6 @@
 <field name="mobilePermissionDate" type="string" indexed="true" store="true" />
 <field name="newsLetterType" type="string" indexed="true" store="true" />
 <field name="occupation" type="string" indexed="true" store="true" />
-<field name="occupation_auto" type="text_auto" indexed="true" store="false" />
 <field name="opportunityAll" type="string" indexed="true" store="true" />
 <field name="opportunityLost" type="string" indexed="true" store="true" />
 <field name="opportunityNew" type="string" indexed="true" store="true" />
@@ -901,12 +890,9 @@
 <field name="payloads" type="payloads" indexed="true" store="true" />
 <field name="phone" type="string" indexed="true" store="true" />
 <field name="phone2" type="string" indexed="true" store="true" />
-<field name="phone_auto" type="text_auto" indexed="true" store="false" />
 <field name="salutation" type="string" indexed="true" store="true" />
 <field name="state" type="string" indexed="true" store="true" />
-<field name="state_auto" type="text_auto" indexed="true" store="false" />
 <field name="subOrgId" type="string" indexed="true" store="true" />
-<field name="subOrgId_auto" type="text_auto" indexed="true" store="false" />
 <field name="subject" type="text" indexed="true" store="true" />
 <field name="subscribe" type="string" indexed="true" store="true" />
 <field name="text" type="text" indexed="true" store="true" />
@@ -916,7 +902,6 @@
 <field name="updateDate" type="date" indexed="true" store="true" />
 <field name="webSiteType" type="string" indexed="true" store="true" />
 <field name="zip" type="string" indexed="true" store="true" />
-<field name="zip_auto" type="text_auto" indexed="true" store="false" />
 <!-- end of Lyris_TYPE -->
 
    <!-- Dynamic field definitions.  If a field name is not found, dynamicFields
@@ -1002,21 +987,6 @@
    <str name="paramkey">param value</str>
  </similarity>
  -->
-  <copyField source="subOrgId" dest="subOrgId_auto" />
-  <copyField source="customerName" dest="customerName_auto" />
-  <copyField source="customerId" dest="customerId_auto" />
-  <copyField source="email" dest="email_auto" />
-  <copyField source="firstName" dest="firstName_auto" />
-  <copyField source="lastName" dest="lastName_auto" />
-  <copyField source="address" dest="address_auto" />
-  <copyField source="city" dest="city_auto" />
-  <copyField source="state" dest="state_auto" />
-  <copyField source="zip" dest="zip_auto" />
-  <copyField source="country" dest="country_auto" />
-  <copyField source="phone" dest="phone_auto" />
-  <copyField source="occupation" dest="occupation_auto" />
-  <copyField source="jobTitle" dest="jobTitle_auto" />
-  <copyField source="companyName" dest="companyName_auto" />
   <copyField source="birthday" dest="birthday_year" />
   <copyField source="birthday" dest="birthday_month" />
   <copyField source="birthday" dest="birthday_day" />

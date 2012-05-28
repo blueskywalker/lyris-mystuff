@@ -1,30 +1,64 @@
 #!/bin/bash
 
-SQL_SCRIPT=getSchema.sql
-UPDATEXML=update.list.txt
-PYTHONPRG=makeFields.py
+SQL_SCHEMA=getSchema.sql
+SQL_DBS=getMySQLDBnames.sql
+UPDATE_LIST=update.list.txt
+MAKE_SCHEMA=makeFields.py
+GET_HBASE=getMasterTable.py
+HBASE_TABLE=/tmp/hbase_tables.txt
+MYSQL_DBNAME=/tmp/mysqldbnames.txt
+INDEX_LIST=/tmp/index.list.txt
 
 function  cleanup()
 {
-    echo rm ${UPDATEXML}
-    rm -f ${UPDATEXML}
-    touch ${UPDATEXML}
+    echo rm ${UPDATE_LIST}
+    rm -f ${UPDATE_LIST}
+    touch ${UPDATE_LIST}
+}
+
+function getTableTobeIndexed()
+{
+	mysqlQuery system  ${SQL_DBS} ${MYSQL_DBNAME}
+	./filterOut.pl ${MYSQL_DBNAME} ${HBASE_TABLE} > ${INDEX_LIST}
+}
+
+function getHBaseTable()
+{
+	echo "executing ./${GET_HBASE} $1"
+	./${GET_HBASE} $1 >  ${HBASE_TABLE}
+}
+
+function makeSchemaXml()
+{
+    echo "${MAKE_SCHEMA} schema.xml $(cat ${UPDATE_LIST})"
+    ${MAKE_SCHEMA} schema.xml $(cat ${UPDATE_LIST}) 
+}
+
+function mysqlQuery()
+{
+    local USER=root
+    local PASSWD=g0lyr1s
+    local DBNAME=$1 
+	local SQLQUERY=$2
+	local OUTPUT=$3
+
+    echo "mysql -h${MYSQL_HOST} -u${USER} -p${PASSWD}  ${DBNAME} < ${SQLQUERY} > ${OUTPUT}"
+    mysql -h${MYSQL_HOST} -u${USER} -p${PASSWD}  ${DBNAME} < ${SQLQUERY} > ${OUTPUT}
 }
 
 
 function getSchemaFromDB()
 {
-    local USER=root
-    local PASSWD=g0lyr1s
     local DBNAME=$1
     local OUTNAME=${DBNAME}_schema.xml
     local TMP_OUT=/tmp/${OUTNAME}
 
-    echo "mysql -h${MYSQL_HOST} -u${USER} -p${PASSWD}  ${DBNAME} < ${SQL_SCRIPT} > ${TMP_OUT}"
-    mysql -h${MYSQL_HOST} -u${USER} -p${PASSWD}  ${DBNAME} < ${SQL_SCRIPT} > ${TMP_OUT}
+    echo "mysqlQuery ${DBNAME} ${SQL_SCHEMA} ${TMP_OUT}"
+    mysqlQuery ${DBNAME} ${SQL_SCHEMA} ${TMP_OUT}
+
     echo "cat ${TMP_OUT} | sed -e '1d' -e 's/\\n/ /g' -e 's/\\t/ /g' | xmllint -format - > ${OUTNAME}"
     cat ${TMP_OUT} | sed -e '1d' -e 's/\\n/ /g' -e 's/\\t/ /g' | xmllint -format - > ${OUTNAME}
-    echo ${OUTNAME} >> ${UPDATEXML}
+    echo ${OUTNAME} >> ${UPDATE_LIST}
 }
 
 function retrieveSchema()
@@ -51,9 +85,10 @@ echo "schema.xml is modified"
 
 function copyToDeploy()
 {
-	DST = shift
+	DST=$1
 
     echo "scp schema.xml root@10.3.202.149:/root/qa-backend/schema/${DST}"
     scp schema.xml root@10.3.202.149:/root/qa-backend/schema/${DST}
 }
+
 
