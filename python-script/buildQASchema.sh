@@ -1,11 +1,5 @@
 #!/bin/bash
 
-if [ $# -lt 1 ]
-then
-    echo "It needs database names."
-    exit
-fi
-
 MYSQL=.mysql_set
 
 if [ -f ${MYSQL} ]
@@ -16,6 +10,7 @@ fi
 if [ -z $MYSQL_HOST ]
 then
    MYSQL_HOST=10.3.213.144
+   HBASE_HOST=10.3.213.149
 fi
 
 source baseScript.sh
@@ -23,11 +18,17 @@ source baseScript.sh
 function main()
 {
     cleanup
-    retrieveSchema $*
-    echo python ${PYTHONPRG} schema.xml $(cat ${UPDATEXML}) 
-    python ${PYTHONPRG} schema.xml $(cat ${UPDATEXML}) 
+	
+	./sync_schema.sh
+	
+	getHBaseTable  ${HBASE_HOST}
+	getTableTobeIndexed 
+	
+	retrieveSchema $(cat ${INDEX_LIST} )
+
+	makeSchemaXml
     modifySchema
-    copyToDeploy QA
+    copyToDeploy DEV
 }
 
 

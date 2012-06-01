@@ -31,7 +31,7 @@ function getHBaseTable()
 function makeSchemaXml()
 {
     echo "${MAKE_SCHEMA} schema.xml $(cat ${UPDATE_LIST})"
-    ${MAKE_SCHEMA} schema.xml $(cat ${UPDATE_LIST}) 
+    ./${MAKE_SCHEMA} schema.xml $(cat ${UPDATE_LIST}) 
 }
 
 function mysqlQuery()

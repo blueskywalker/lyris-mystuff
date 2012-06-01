@@ -483,7 +483,7 @@
 <field name="address" type="string" indexed="true" store="true" />
 <field name="age" type="string" indexed="true" store="true" />
 <field name="author" type="textgen" indexed="true" store="true" />
-<field name="birthday" type="date" indexed="true" store="true" />
+<field name="birthday" type="string" indexed="true" store="true" />
 <field name="category" type="textgen" indexed="true" store="true" />
 <field name="childrenInHousehold" type="string" indexed="true" store="true" />
 <field name="city" type="string" indexed="true" store="true" />
@@ -858,6 +858,7 @@
 <field name="gender" type="string" indexed="true" store="true" />
 <field name="hlEdu" type="string" indexed="true" store="true" />
 <field name="homeOwnership" type="string" indexed="true" store="true" />
+<field name="id" type="stringSolr" indexed="true" store="true" />
 <field name="income" type="string" indexed="true" store="true" />
 <field name="internetExp" type="string" indexed="true" store="true" />
 <field name="jobTitle" type="string" indexed="true" store="true" />
@@ -954,6 +955,7 @@
 
  <!-- field for the QueryParser to use when an explicit fieldname is absent -->
  <!--defaultSearchField>text</defaultSearchField-->
+ <defaultSearchField>id</defaultSearchField>
 
  <!-- SolrQueryParser configuration: defaultOperator="AND|OR" -->
  <solrQueryParser defaultOperator="OR"/>
