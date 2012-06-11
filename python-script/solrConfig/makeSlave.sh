@@ -1,10 +1,10 @@
 #!/bin/bash
 
-if [ ! $# -eq 1 ]
-then
-    echo "It needs master's ip or hostname."
-    exit
-fi
+#if [ ! $# -eq 1 ]
+#then
+#    echo "It needs master's ip or hostname."
+#    exit
+#fi
 
 BASEDIR=$(dirname $0)
 HOST=$1
@@ -31,4 +31,15 @@ done
 
 }
 
-main 
+## main
+override_config="/etc/lyris/lyris_override.properties"
+master=`grep solr.master.host $override_config |awk -F"=" '{print $2}'`
+slave=`hostname -i`
+
+if [ "$master" != "$slave" ]
+then
+        main $master
+else
+	echo "this is the master server do nothing"
+
+fi
