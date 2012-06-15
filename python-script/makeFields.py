@@ -47,7 +47,7 @@ def makeOutput(filename):
     outFile = open(filename,"w")
 
     for f in sorted(fields.iterkeys()):
-        outFile.write('<field name="%s" type="%s" indexed="true" store="true" />\n' %( f,  fields[f]))
+        outFile.write('<field name="%s" type="%s" indexed="true" stored="true" />\n' %( f,  fields[f]))
 
     outFile.close()
 
@@ -62,6 +62,7 @@ def main(args):
     args.pop(0); # args 1
 
     for arg in args:
+        print "processing %s"%(arg)
         makeFieldDict(arg)
 
     makeOutput('schema_snapit.xml')

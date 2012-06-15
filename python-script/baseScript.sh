@@ -8,33 +8,42 @@ GET_HBASE=getMasterTable.py
 HBASE_TABLE=/tmp/hbase_tables.txt
 MYSQL_DBNAME=/tmp/mysqldbnames.txt
 INDEX_LIST=/tmp/index.list.txt
+TMP_INPUT=/tmp/`date +%s`
 
-function  cleanup()
+function  cleanup
 {
     echo rm ${UPDATE_LIST}
     rm -f ${UPDATE_LIST}
     touch ${UPDATE_LIST}
+	echo rm *xml
+	rm *xml
 }
 
-function getTableTobeIndexed()
+function getTableTobeIndexed
 {
 	mysqlQuery system  ${SQL_DBS} ${MYSQL_DBNAME}
 	./filterOut.pl ${MYSQL_DBNAME} ${HBASE_TABLE} > ${INDEX_LIST}
 }
 
-function getHBaseTable()
+function getHBaseTable
 {
 	echo "executing ./${GET_HBASE} $1"
 	./${GET_HBASE} $1 >  ${HBASE_TABLE}
 }
 
-function makeSchemaXml()
+function makeSchemaXml
 {
-    echo "${MAKE_SCHEMA} schema.xml $(cat ${UPDATE_LIST})"
-    ./${MAKE_SCHEMA} schema.xml $(cat ${UPDATE_LIST}) 
+	echo getLyrisField ${TMP_INPUT}
+	getLyrisField ${TMP_INPUT}
+
+	echo addDecorator ${TMP_INPUT}
+	addDecorator ${TMP_INPUT}
+
+    echo "./${MAKE_SCHEMA} ${TMP_INPUT} $(cat ${UPDATE_LIST})"
+    ./${MAKE_SCHEMA} ${TMP_INPUT} $(cat ${UPDATE_LIST})
 }
 
-function mysqlQuery()
+function mysqlQuery
 {
     local USER=root
     local PASSWD=g0lyr1s
@@ -47,7 +56,7 @@ function mysqlQuery()
 }
 
 
-function getSchemaFromDB()
+function getSchemaFromDB
 {
     local DBNAME=$1
     local OUTNAME=${DBNAME}_schema.xml
@@ -61,7 +70,7 @@ function getSchemaFromDB()
     echo ${OUTNAME} >> ${UPDATE_LIST}
 }
 
-function retrieveSchema()
+function retrieveSchema
 {
     for db in $*
     do
@@ -69,7 +78,35 @@ function retrieveSchema()
     done
 }
 
-function modifySchema()
+function getLyrisField
+{
+
+ed - schema.xml << EOF
+/Lyris_TYPE
++,/Lyris_TYPE/-w $1
+q
+EOF
+
+}
+
+function addDecorator
+{
+ed - $1 << EOF
+1
+i
+<fields>
+.
+$
+a
+</fields>
+.
+w
+q
+EOF
+
+}
+
+function modifySchema
 {
 ed - schema.xml << EOF
 /Lyris_TYPE
@@ -83,12 +120,12 @@ EOF
 echo "schema.xml is modified"
 }
 
-function copyToDeploy()
+function copyToDeploy
 {
 	DST=$1
 
-    echo "scp schema.xml root@10.3.202.149:/root/qa-backend/schema/${DST}"
-    scp schema.xml root@10.3.202.149:/root/qa-backend/schema/${DST}
+    echo "scp schema.xml root@10.3.202.149:/root/solrWorkSpace/schema/${DST}"
+    scp schema.xml root@10.3.202.149:/root/solrWorkSpace/schema/${DST}
 }
 
 

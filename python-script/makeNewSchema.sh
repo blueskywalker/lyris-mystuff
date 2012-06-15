@@ -1,5 +1,7 @@
 #!/bin/bash
 
+function newSchema
+{
 ed - schema.xml << EOF
 /Lyris_TYPE
 +,/Lyris_TYPE/-d
@@ -8,3 +10,17 @@ ed - schema.xml << EOF
 w
 q
 EOF
+}
+
+
+function getExist
+{
+ed - schema.xml << EOF
+/Lyris_TYPE
++,/Lyris_TYPE/w $1
+q
+EOF
+
+}
+
+getExist $*
