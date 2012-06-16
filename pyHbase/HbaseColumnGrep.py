@@ -68,18 +68,17 @@ def printStdout(rows,outputfile):
     
     
 def main(args):
-    if(len(args) < 5):
-        print "%s orgId subOrgId column pattern output[option]"%(args[0])
+    if(len(args) < 4):
+        print "%s tablename column pattern output[option]"%(args[0])
         sys.exit(1)
 
-    orgId = args[1]
-    subOrgId = args[2]
-    column = args[3]
-    pattern = args[4]
+    tablename=args[1]
+    column = args[2]
+    pattern = args[3]
 
     outputfile = ""
-    if(len(args)>5):
-        outputfile=args[5]
+    if(len(args)>4):
+        outputfile=args[4]
     
     getConfiguration('host.properties')
     
@@ -90,7 +89,7 @@ def main(args):
     global client
     client = Hbase.Client(protocol)
 
-    tablename = "%s_%s_master_%s"%(orgId,subOrgId,orgId)
+#    tablename = "%s_%s_master_%s"%(orgId,subOrgId,orgId)
 
     rowlist = columnGrep(tablename,column,pattern)
     
