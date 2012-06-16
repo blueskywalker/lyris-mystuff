@@ -9,7 +9,7 @@ from thrift.protocol import TBinaryProtocol
 from hbase import Hbase 
 
  
-hbaseHost = '10.3.203.146'
+hbaseHost = '10.3.213.149'
 #hbaseHost = '10.3.9.18'
 transport = TBufferedTransport(TSocket(hbaseHost, 9090))
 transport.open()
@@ -114,7 +114,7 @@ def main(args):
  
 #    getColumnInfo('lyris_uptilt_master_lyris')            
 #    table_name='lyris_uptilt_master_lyris'
-    table_name='visitor_by_hour'
+    table_name='email_by_hour'
 #    rows=getUniqRow(table_name)
 #    print(len(rows.items())) 
 
