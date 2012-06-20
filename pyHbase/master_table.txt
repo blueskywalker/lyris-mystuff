@@ -1,8 +1,0 @@
-lyris_1_master_lyris
-lyris_dell_master_lyris
-lyris_demo_master_lyris
-lyris_master_lyris
-lyris_mcgrawhill_master_lyris
-lyris_uptilt_master_lyris
-lyris_urbandaddy_master_lyris
-system_lyris_master_lyris
