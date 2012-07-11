@@ -9,13 +9,16 @@ def getConfiguration(filename):
     config = ConfigParser.RawConfigParser()
     config.read(filename)
     
-    global solrHost
-    solrHost = config.get('hosts','solr')
+    global solrHosts
+    hosts = config.get('hosts','solr')
+    solrHosts = hosts.split(',')
+    print solrHosts
     
-def connectSolrServer(orgId,subOrgId):
+
+def connectSolrServer(host,orgId,subOrgId):
     global solrServer
     coreNo = commands.getoutput("./getCore.sh %s %s"%(orgId,subOrgId))
-    hostUrl = "http://%s:8983/solr/%s"%(solrHost,coreNo)
+    hostUrl = "http://%s:8983/solr/%s"%(host,coreNo)
     solrServer = solr.SolrConnection(hostUrl)
     
 def main(args):
@@ -26,12 +29,11 @@ def main(args):
     
     getConfiguration('host.properties')
     
-    connectSolrServer(args[1],args[2])
-    
-    solrServer.delete_query("orgId:%s AND subOrgId:%s"%(args[1],args[2]))
-    
-    solrServer.commit()
-    solrServer.close()
+    for host in solrHosts:
+    	connectSolrServer(host,args[1],args[2])
+    	solrServer.delete_query("orgId:%s AND subOrgId:%s"%(args[1],args[2]))
+    	solrServer.commit()
+    	solrServer.close()
     
     
 if __name__ == '__main__':

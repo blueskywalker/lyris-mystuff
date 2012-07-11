@@ -97,8 +97,8 @@ def printRowsResult(rows):
     
     for row in rows:
         print "row-id:%s" %(row.row)
-        for col in row.columns.iteritems():
-            print "%s:%s"%(col[0],col[1].value)
+        for k,v in sorted(row.columns.items()):
+            print "%s:%s"%(k,v.value)
             
 
         
@@ -112,15 +112,23 @@ def main(args):
 #    getColumnInfo('visitor_by_hour')
 #    getColumnInfo('email_by_hour')
  
-#    getColumnInfo('lyris_uptilt_master_lyris')            
 #    table_name='lyris_uptilt_master_lyris'
-    #table_name='email_by_hour'
-    table_name='visitor_by_hour'
+    table_name='email_by_hour'
+#    table_name='visitor_by_hour'
+#    table_name='web_behavior_lyris_uptilt'
+
 #    rows=getUniqRow(table_name)
 #    print(len(rows.items())) 
 
-    ret=getRowsLimit(table_name,3)
-    
+#    getColumnInfo(table_name)            
+
+    if(len(args)<2):
+        print "TableScan.py tableName"
+        sys.exit(1)
+
+    table_name=args[1]
+
+    ret=getRowsLimit(table_name,10)
     printRowsResult(ret)
 
 
