@@ -19,10 +19,20 @@ transport.open()
 protocol = TBinaryProtocol.TBinaryProtocol(transport)
 client = Hbase.Client(protocol)
 
-uuids = ['079641-01898133-697','079641-01898134-698','079641-01898135-699',
-        '079641-01892817-369','079641-01898135-700','079641-01898203-701',
-        '079641-01898204-702','079641-01898205-703','079641-01898206-704',
-        '079641-01898206-705']
+uuids = []
+
+
+def getRowsLimit(table_name,no_row):
+    coldesc = client.getColumnDescriptors(table_name)
+
+    desc_name,desc = coldesc.items()[0]
+
+    print desc_name
+
+    scanner = client.scannerOpen(table_name,'',[desc_name])
+
+    return client.scannerGetList(scanner,no_row)
+
 
 def updateUUID(table_name):
     
@@ -106,9 +116,18 @@ def updateRowsForDebugging(table_name,rows):
 
     
 def main(args):
-    table_name='email_by_hour'
+    
  
-    updateUUID(table_name)
+    rows = getRowsLimit('lyris_uptilt_master_lyris',100)
+    
+    for row in rows:
+        keys = row.row.split('|')
+        #print keys[1]
+        uuids.append(keys[1])
+        
+    table_name='email_by_hour'
+    
+#    updateUUID(table_name)
     
 #    client.mutateRow(table_name,'jerry@lyris.com|079678-13795157-000',
 #                     [Hbase.Mutation(column='master_info_cf:webSiteType',value='Commercial')])

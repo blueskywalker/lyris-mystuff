@@ -78,10 +78,10 @@ def getUniqRow(table_name,echo):
     
 
     if (echo):
-		for row in rows.items():
-			print row
+        for row in rows.items():
+            print row
     else:
-		print len(rows); 
+        print len(rows);
 
     return rows
 
@@ -111,11 +111,11 @@ def printRowInfo(rows):
 	
 	
 def main(args):
-   # getColumnInfo('visitor_by_hour')
+    getColumnInfo('visitor_by_hour')
     #getColumnInfo('email_by_hour')
  
 #    getUniqRow(table_name)
-    getColumnInfo('lyris_uptilt_master_lyris')            
+#    getColumnInfo('lyris_uptilt_master_lyris')            
 #   getColumnInfo('web_behavior_lyris_uptilt')            
 #	getUniqRow('email_by_hour',False)
 

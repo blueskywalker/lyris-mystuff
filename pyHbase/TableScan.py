@@ -112,8 +112,8 @@ def main(args):
 #    getColumnInfo('visitor_by_hour')
 #    getColumnInfo('email_by_hour')
  
-#    table_name='lyris_uptilt_master_lyris'
-    table_name='email_by_hour'
+    table_name='lyris_uptilt_master_lyris'
+#    table_name='email_by_hour'
 #    table_name='visitor_by_hour'
 #    table_name='web_behavior_lyris_uptilt'
 
