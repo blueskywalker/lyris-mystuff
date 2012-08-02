@@ -104,6 +104,7 @@
     <fieldType name="float" class="solr.TrieFloatField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
     <fieldType name="long" class="solr.TrieLongField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
     <fieldType name="double" class="solr.TrieDoubleField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
+    <fieldType name="number" class="solr.TrieLongField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
 
     <!--
      Numeric field types that index each value at various levels of precision
@@ -944,18 +945,29 @@
    <!--dynamicField name="*" type="ignored" multiValued="true" /-->
    
 <field name="id" type="stringSolr" indexed="true" stored="true" />
+<!-- Web Behavior Fields -->
+<field name="cartAbandonment" type="string" indexed="true" stored="true" multiValued="true" /> 
+<field name="completedScenario1" type="string" indexed="true" stored="true" multiValued="true" />
+<field name="completedScenario2" type="string" indexed="true" stored="true" multiValued="true" />
+<field name="completedScenario3" type="string" indexed="true" stored="true" multiValued="true" />
+<field name="internalSearch" type="string" indexed="true" stored="true" multiValued="true" />
+<field name="productPurchase" type="string" indexed="true" stored="true" multiValued="true" />
+<field name="productView" type="string" indexed="true" stored="true" multiValued="true" />
+<field name="revenuePurchase" type="string" indexed="true" stored="true" multiValued="true" />
+<field name="webBounce" type="string" indexed="true" stored="true" multiValued="true" />
+<field name="mobileView" type="string" indexed="true" stored="true" multiValued="true" />
+<field name="downloads" type="string" indexed="true" stored="true" multiValued="true" />
+<field name="duration" type="string" indexed="true" stored="true" multiValued="true" />
+<field name="viewRegion" type="string" indexed="true" stored="true" multiValued="true" />
+<field name="pageDepth" type="string" indexed="true" stored="true" multiValued="true" />
+<!-- Web Behavior Fields -->
 
 <!-- EMAIL_BY_HOUR -->
-<field name="EBH_unique_count" type="stringSolr" indexed="true" stored="true" multivalued="true" />
-<field name="EBH_country_name" type="stringSolr" indexed="true" stored="true" multivalued="true" />
-<field name="EBH_visit_count" type="stringSolr" indexed="true" stored="true" multivalued="true" />
-<field name="EBH_zip_code" type="stringSolr" indexed="true" stored="true" multivalued="true" />
-<field name="EBH_pages" type="stringSolr" indexed="true" stored="true" multivalued="true" />
-<field name="EBH_city" type="stringSolr" indexed="true" stored="true" multivalued="true" />
-<field name="EBH_region" type="stringSolr" indexed="true" stored="true" multivalued="true" />
-<field name="EBH_event_type" type="stringSolr" indexed="true" stored="true" multivalued="true" />
-
+<field name="total_number_open" type="long" indexed="true" stored="true" multiValued="true" />
+<field name="unique_number_open" type="long" indexed="true" stored="true" multiValued="true" />
+<field name="total_number_unsubscribe" type="long" indexed="true" stored="true" multiValued="true" />
 <!-- EMAIL_BY_HOUR -->
+
  </fields>
 
  <!-- Field to use to determine and enforce document uniqueness. 
