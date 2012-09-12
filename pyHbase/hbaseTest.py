@@ -111,11 +111,19 @@ def printRowInfo(rows):
 	
 	
 def main(args):
+<<<<<<< HEAD
     getColumnInfo('visitor_by_hour')
     #getColumnInfo('email_by_hour')
  
 #    getUniqRow(table_name)
 #    getColumnInfo('lyris_uptilt_master_lyris')            
+=======
+   # getColumnInfo('visitor_by_hour')
+    getColumnInfo('email_by_hour')
+ 
+#    getUniqRow(table_name)
+    #getColumnInfo('lyris_uptilt_master_lyris')            
+>>>>>>> qa
 #   getColumnInfo('web_behavior_lyris_uptilt')            
 #	getUniqRow('email_by_hour',False)
 
