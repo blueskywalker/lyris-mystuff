@@ -98,10 +98,8 @@ def getRowsLimit(table_name,no_row):
     
 def printRowsResult(rows):
     
-    count=0;
     for row in rows:
-        count = count + 1
-        print "row[%d]:%s" %(count,row.row)
+        print "row-id:%s" %(row.row)
         for k,v in sorted(row.columns.items()):
             print "%s:%s"%(k,v.value)
             
@@ -113,20 +111,11 @@ def getMasterTables():
             print table
 
     
+def getTableNames():
+    for table in client.getTableNames():
+            print table
+
 def main(args):
-
-#    getColumnInfo(table_name)            
-
-    if(len(args)<2):
-        print "TableScan.py tableName No[10]"
-        sys.exit(1)
-
-    table_name=args[1]
-    NO=10;
-    if(len(args)<3):
-        NO=10; 
-    else:
-        NO=int(args[2]);
 
     getConfiguration('host.properties')
 
@@ -136,9 +125,7 @@ def main(args):
     global client
     client = Hbase.Client(protocol)
 
-    ret=getRowsLimit(table_name,NO)
-    printRowsResult(ret)
-
+    getTableNames()
 
 if __name__ == "__main__":
     main(sys.argv)    

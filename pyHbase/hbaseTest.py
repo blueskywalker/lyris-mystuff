@@ -10,8 +10,8 @@ from thrift.protocol import TBinaryProtocol
 from hbase import Hbase 
 
  
-hbaseHost = '10.3.203.146'
-#hbaseHost = '10.3.9.18'
+#hbaseHost = '10.3.203.146'
+hbaseHost = '10.3.213.149'
 transport = TBufferedTransport(TSocket(hbaseHost, 9090))
 transport.open()
 protocol = TBinaryProtocol.TBinaryProtocol(transport)
@@ -111,7 +111,7 @@ def printRowInfo(rows):
 	
 	
 def main(args):
-    getColumnInfo('visitor_by_hour')
+   # getColumnInfo('visitor_by_hour')
     #getColumnInfo('email_by_hour')
  
 #    getUniqRow(table_name)
@@ -124,8 +124,8 @@ def main(args):
 #	rows = getRowList("email_by_hour",10)
 #	rows = getRowList("visitor_by_hour",10)
 
-#	rows = getRowList("lyris_uptilt_master_lyris",10)
-#	printRowInfo(rows)
+	rows = getRowList("lyris_uptilt_master_lyris",10)
+	printRowInfo(rows)
 	
 if __name__ == "__main__":
     main(sys.argv)    
