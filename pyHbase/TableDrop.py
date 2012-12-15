@@ -50,7 +50,7 @@ def main(args):
     client = Hbase.Client(protocol)
         
     
-#    tablename = "%s_%s_master_%s"%(orgId,subOrgId,orgId);
+#    tablename = "%s_%s_master_%s"%(orgId,subOrgId,"lyris");
     client.disableTable(tablename)
     client.deleteTable(tablename)
 
@@ -59,7 +59,4 @@ def main(args):
 if __name__ == "__main__":
     main(sys.argv)    
     
-
-
-        
-
+    

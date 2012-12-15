@@ -1,21 +1,23 @@
 #!/usr/bin/env python
 
 import sys
-
 #sys.path.append('/home/jerry/Software/gen-py')
 
 from thrift.transport.TSocket import TSocket
 from thrift.transport.TTransport import TBufferedTransport
 from thrift.protocol import TBinaryProtocol
 from hbase import Hbase 
+import ConfigParser
 
  
-hbaseHost = '10.3.203.146'
-#hbaseHost = '10.3.9.18'
-transport = TBufferedTransport(TSocket(hbaseHost, 9090))
-transport.open()
-protocol = TBinaryProtocol.TBinaryProtocol(transport)
-client = Hbase.Client(protocol)
+hbaseHost=""
+
+def getConfiguration(filename):
+    config = ConfigParser.RawConfigParser()
+    config.read(filename)
+    global hbaseHost
+    
+    hbaseHost = config.get('hosts','hbase')
 
 def getColumnInfo(table_name):
     
@@ -50,7 +52,7 @@ def getColumnInfo(table_name):
         print col
 
 
-def getUniqRow(table_name,echo):
+def getUniqRow(table_name):
     coldesc = client.getColumnDescriptors(table_name)
 
     desc_name,desc = coldesc.items()[0]
@@ -77,64 +79,58 @@ def getUniqRow(table_name,echo):
         pass
     
 
-    if (echo):
-        for row in rows.items():
-            print row
-    else:
-        print len(rows);
+    return rows;   
 
-    return rows
+    
+def getRowsLimit(table_name,no_row):
+    coldesc = client.getColumnDescriptors(table_name)
 
+    desc_name,desc = coldesc.items()[0]
 
+    print desc_name
+    
+    scanner = client.scannerOpen(table_name,'',[desc_name])
+    
+    return client.scannerGetList(scanner,no_row)
+    
+    
+     
+    
+def printRowsResult(rows):
+    
+    for row in rows:
+        print "row-id:%s" %(row.row)
+        for k,v in sorted(row.columns.items()):
+            print "%s:%s"%(k,v.value)
+            
+
+        
 def getMasterTables():
     for table in client.getTableNames():
         if 'master' in table:
             print table
 
     
+def getTableNames():
+    for table in client.getTableNames():
+            print table
 
-def getRowList(tablename,limit):
-	coldesc = client.getColumnDescriptors(tablename)
-	desc_name,desc = coldesc.items()[0]
-	print desc_name
-	
-	scanner = client.scannerOpen(tablename,'',[desc_name])
-
-	return client.scannerGetList(scanner,limit)
-
-def printRowInfo(rows):
-	for row in rows:
-		print row.row
-		for cell in row.columns.items():
-			print cell
-		print ""
-	
-	
 def main(args):
-<<<<<<< HEAD
-    getColumnInfo('visitor_by_hour')
-    #getColumnInfo('email_by_hour')
- 
-#    getUniqRow(table_name)
-#    getColumnInfo('lyris_uptilt_master_lyris')            
-=======
-   # getColumnInfo('visitor_by_hour')
-    getColumnInfo('email_by_hour')
- 
-#    getUniqRow(table_name)
-    #getColumnInfo('lyris_uptilt_master_lyris')            
->>>>>>> qa
-#   getColumnInfo('web_behavior_lyris_uptilt')            
-#	getUniqRow('email_by_hour',False)
 
-#	getUniqRow('visitor_by_hour',False)
+    getConfiguration('host.properties')
 
-#	rows = getRowList("email_by_hour",10)
-#	rows = getRowList("visitor_by_hour",10)
+    transport = TBufferedTransport(TSocket(hbaseHost, 9090))
+    transport.open()
+    protocol = TBinaryProtocol.TBinaryProtocol(transport)
+    global client
+    client = Hbase.Client(protocol)
 
-#	rows = getRowList("lyris_uptilt_master_lyris",10)
-#	printRowInfo(rows)
-	
+    getTableNames()
+
 if __name__ == "__main__":
     main(sys.argv)    
     
+
+
+        
+

@@ -35,7 +35,7 @@ def getRowsLimit(table_name,no_row):
 
 
 def updateUUID(table_name):
-    
+
     coldesc = client.getColumnDescriptors(table_name)
 
     desc_name,desc = coldesc.items()[0]
